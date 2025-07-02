@@ -16,7 +16,7 @@ def client_mode():
     print(">_ Enter multiple server targets. Type '(f)inish' to continue. <\n")
 
     while True:
-        ip = input(">_ Server IP (or 'done'): ").strip()
+        ip = input(">_ Server IP (or '(f)inish'): ").strip()
         if ip.lower() in ('f', 'finish', 'e', 'exit'):
             break
 
@@ -35,7 +35,7 @@ def client_mode():
             ">_ Command selection. Please select on of predefined commands:\n"
             "  [1] get_users \n"
             "  [2] get_processes \n"
-            "  [(e)xit] End process \n"
+            "  [(e)xit] end process \n"
             "  [(f)inish] to continue"  
             ">_ User input: "
         )
@@ -43,7 +43,7 @@ def client_mode():
         while True:
 
             cmd = input("Command: ").strip()
-            if cmd.lower() in ('done', 'e', 'exit'):
+            if cmd.lower() in ('f', 'finish', 'e', 'exit'):
                 break
 
 

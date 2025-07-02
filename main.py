@@ -11,7 +11,7 @@ from clients.client_ui import client_mode
 def main():
     while True:
         mode_select = input(
-            ">_ Mode selection. Please select on of the displayed modes:\n"
+            ">_ Mode selection. Please select one of the displayed modes:\n"
             "  [1] Initiate server \n"
             "  [2] Client mode \n"
             "  [(e)xit] End process \n"

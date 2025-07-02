@@ -16,14 +16,15 @@ class Server:
         self.sys = platform.system()
 
     def start(self):
-        print(f"\n>_ Server initiated... <")
+
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            print(f"\n>_ Server initiated at {self.host_ip}:{self.port}... <")
             try:
                 s.settimeout(45)
                 s.bind((self.host_ip, self.port))
                 s.listen(5)
 
-                print(f">_ Host, ({self.sys}- Listening for connections at {self.host_ip}:{self.port})... \n")
+                print(f">_ Host, {self.sys} - Listening for connections... \n")
 
                 while True:
                     conn, addr = s.accept()
