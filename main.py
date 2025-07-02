@@ -2,11 +2,9 @@
 '''THis is the main start program, will be the begging of the enumeration, providing a path to server or client functionality.'''
 
 import threading
-from fileinput import close
 
-
-#from servers.server import Server
-#from clients.c_base import Client
+from servers.server import Server
+from clients.c_base import Client
 
 def main():
     while True:
