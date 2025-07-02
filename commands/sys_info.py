@@ -1,32 +1,26 @@
-
-'''Command functions dependent on operating system, to make the enumeration work on both windows and linux'''
+'''THis application handles the command for getting the system users for windows and linux devices'''
 
 import platform
 import subprocess
 
 def get_users():
-    sys_type = platform.system() # get sys name
+    sys_type = platform.system() # checks machines operating system
 
     try:
-
-        '''Linux is the easiest to enumerate as the file system is more accessable'''
-
-        if sys_type == "Linux": # checks if the operating system is Linux-based
-            with open('/etc/passwd') as f: # reads the passwd file to get sys users
-                sys_users = [line.split(':')[0] for line in f] # formating the /etc/passwd file
-            return {"System users :": sys_users}
-
+            # LInux - reads the first line of the /etc/passwd and prints it
+        if sys_type == "Linux":
+            with open('/etc/passwd') as f:
+                 # formating
+                sys_users = [line.split(':')[0] for line in f]
+            return {"System users": sys_users}
 
 
-        '''Windows enumeration takes more, as windows isnt as open with its directory architecture as Linux, though with use of shell commands it should be fine'''
-
-        elif sys_type == "Windows": # checks if the operating system is windows
-
-            shell_outp = subprocess.check_output('net user', shell = True).decode()
-
-            sys_users = [] # unformated users sent to list
+            # Windows - uses subprocesses to input a command such as net user to get the systems users
+        elif sys_type == "Windows":
+            shell_outp = subprocess.check_output('net user', shell=True).decode()
+            sys_users = []
             collect = False
-
+                # formating
             for line in shell_outp.splitlines():
                 if "----" in line:
                     collect = not collect
@@ -34,10 +28,10 @@ def get_users():
                 if collect:
                     sys_users += line.split()
 
-        return {"System users :": sys_users}
+            return {"System users": sys_users}
 
-
-
+        else:
+            return {"error": "Unsupported OS"}
 
     except Exception as e:
         return {"error": str(e)}
