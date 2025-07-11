@@ -1,10 +1,11 @@
 
-'''Server implementation'''
-
+'''Server implementation
+All this does is take the input from the client and '''
 import socket
 import threading
 import platform
 import json
+from fileinput import close
 
 from commands.sys_info import get_users
 from commands.proc__info import get_processes
@@ -20,7 +21,7 @@ class Server:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print(f"\n>_ Server initiated at {self.host_ip}:{self.port}... <")
             try:
-                s.settimeout(45)
+                s.settimeout(120)
                 s.bind((self.host_ip, self.port))
                 s.listen(5)
 
@@ -29,7 +30,7 @@ class Server:
                 while True:
                     conn, addr = s.accept()
                     print(f">_ Accepted connection from {addr} <")
-                    threading.Thread(target=self.client_handler, args=(conn, addr)).start()  # FIXED: added .start()
+                    threading.Thread(target=self.client_handler, args=(conn, addr)).start()
 
             except socket.timeout:
                 print('\n>_ [!] Session timed out. No connection made. [!] <')
@@ -52,14 +53,18 @@ class Server:
                     response = self.exe_command(command)
                     conn.sendall(json.dumps(response).encode())
 
+
+
             except Exception as e:
                 print(f">_ [!] Error with {addr}: {e} <")
                 conn.sendall(b'{"error": "Server error"}')
 
     def exe_command(self, command):
-        if command == '1':
-            return get_users()
-        elif command == '2':
-            return get_processes()
-        else:
-            return {'error': 'Invalid command'}
+
+            if command == '1':
+                return get_users()
+            elif command == '2':
+                return get_processes()
+            else:
+                return {'error': 'Invalid command'}
+

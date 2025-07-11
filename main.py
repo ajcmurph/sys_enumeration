@@ -10,6 +10,7 @@ from clients.client_ui import client_mode
 
 def main():
     while True:
+        print('start')
         mode_select = input(
             ">_ Mode selection. Please select one of the displayed modes:\n"
             "  [1] Initiate server \n"
@@ -24,11 +25,11 @@ def main():
         if mode_select == '1':
             print('\n>_ Server selected.')
 
-            ip_input = input(">_ Enter IPv4 to bind server (default 0.0.0.0): ") or "0.0.0.0"
+            ip_input = input("Enter IPv4 to bind server (default 0.0.0.0): ") or "0.0.0.0"
             if ip_input.lower() in ['e', 'exit']:
                 break
 
-            port_input = input(">_ Enter open port to listen on: ")
+            port_input = input("Enter open port to listen on: ")
             if port_input.lower() in ['e', 'exit']:
                 break
 
@@ -40,7 +41,7 @@ def main():
 
             server = Server(ip_input, port)
             threading.Thread(target=server.start).start()
-
+            break
 
             '''Call to the client functionaity'''
         elif mode_select == '2':
